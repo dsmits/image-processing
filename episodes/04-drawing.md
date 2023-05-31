@@ -113,8 +113,8 @@ Next, we draw a filled, rectangle on the mask:
 
 ```python
 # Draw filled rectangle on the mask image
-rr, cc = skimage.draw.rectangle(start=(357, 44), end=(740, 720))
-mask[rr, cc] = False
+rows, columns = skimage.draw.rectangle(start=(357, 44), end=(740, 720))
+mask[rows, columns] = False
 
 # Display mask image
 fig, ax = plt.subplots()
@@ -215,16 +215,16 @@ Drawing a circle:
 
 ```python
 # Draw a blue circle with centre (200, 300) in (ry, cx) coordinates, and radius 100
-rr, cc = skimage.draw.disk(center=(200, 300), radius=100, shape=canvas.shape[0:2])
-canvas[rr, cc] = (0, 0, 255)
+rows, columns = skimage.draw.disk(center=(200, 300), radius=100, shape=canvas.shape[0:2])
+canvas[rows, columns] = (0, 0, 255)
 ```
 
 Drawing a line:
 
 ```python
 # Draw a green line from (400, 200) to (500, 700) in (ry, cx) coordinates
-rr, cc = skimage.draw.line(r0=400, c0=200, r1=500, c1=700)
-canvas[rr, cc] = (0, 255, 0)
+rows, columns = skimage.draw.line(r0=400, c0=200, r1=500, c1=700)
+canvas[rows, columns] = (0, 255, 0)
 ```
 
 ```python
@@ -249,13 +249,13 @@ canvas = np.zeros(shape=(600, 800, 3), dtype="uint8")
 
 # draw a blue circle at a random location 15 times
 for i in range(15):
-    rr, cc = skimage.draw.disk(center=(
+    rows, columns = skimage.draw.disk(center=(
          random.randrange(600),
          random.randrange(800)),
          radius=50,
          shape=canvas.shape[0:2],
         )
-    canvas[rr, cc] = (0, 0, 255)
+    canvas[rows, columns] = (0, 0, 255)
 
 # display the results
 fig, ax = plt.subplots()
@@ -278,7 +278,7 @@ for i in range(15):
     x = random.random()
     if x < 0.33:
         # draw a blue circle at a random location
-        rr, cc = skimage.draw.disk(center=(
+        rows, columns = skimage.draw.disk(center=(
             random.randrange(600),
             random.randrange(800)),
             radius=50,
@@ -287,7 +287,7 @@ for i in range(15):
         color = (0, 0, 255)
     elif x < 0.66:
         # draw a green line at a random location
-        rr, cc = skimage.draw.line(
+        rows, columns = skimage.draw.line(
             r0=random.randrange(600),
             c0=random.randrange(800),
             r1=random.randrange(600),
@@ -296,14 +296,14 @@ for i in range(15):
         color = (0, 255, 0)
     else:
         # draw a red rectangle at a random location
-        rr, cc = skimage.draw.rectangle(
+        rows, columns = skimage.draw.rectangle(
             start=(random.randrange(600), random.randrange(800)),
             extent=(50, 50),
             shape=canvas.shape[0:2],
         )
         color = (255, 0, 0)
 
-    canvas[rr, cc] = color
+    canvas[rows, columns] = color
 
 # display the results
 fig, ax = plt.subplots()
@@ -359,8 +359,8 @@ maize_seedlings = iio.imread(uri="data/maize-seedlings.tif")
 mask = np.ones(shape=maize_seedlings.shape[0:2], dtype="bool")
 
 # Draw a filled rectangle on the mask image
-rr, cc = skimage.draw.rectangle(start=(357, 44), end=(740, 720))
-mask[rr, cc] = False
+rows, columns = skimage.draw.rectangle(start=(357, 44), end=(740, 720))
+mask[rows, columns] = False
 ```
 
 Then, we use numpy indexing to remove the portions of the image,
@@ -416,8 +416,8 @@ remote = np.array(remote)
 mask = np.ones(shape=remote.shape[0:2], dtype="bool")
 
 # Draw a filled rectangle on the mask image
-rr, cc = skimage.draw.rectangle(start=(93, 1107), end=(1821, 1668))
-mask[rr, cc] = False
+rows, columns = skimage.draw.rectangle(start=(93, 1107), end=(1821, 1668))
+mask[rows, columns] = False
 
 # Apply the mask
 remote[mask] = 0
@@ -484,8 +484,8 @@ with open("data/centers.txt", "r") as center_file:
         ry = int(coordinates[1])
 
         # ... and drawing a circle on the mask
-        rr, cc = skimage.draw.disk(center=(ry, cx), radius=16, shape=wellplate.shape[0:2])
-        mask[rr, cc] = False
+        rows, columns = skimage.draw.disk(center=(ry, cx), radius=16, shape=wellplate.shape[0:2])
+        mask[rows, columns] = False
 
 # apply the mask
 wellplate[mask] = 0
@@ -554,8 +554,8 @@ for row in range(12):
     for col in range(8):
 
         # ... and drawing a circle on the mask
-        rr, cc = skimage.draw.disk(center=(ry, cx), radius=16, shape=wellplate.shape[0:2])
-        mask[rr, cc] = False
+        rows, columns = skimage.draw.disk(center=(ry, cx), radius=16, shape=wellplate.shape[0:2])
+        mask[rows, columns] = False
         cx += deltaCX
     # after one complete row, move to next row
     ry += deltaRY
